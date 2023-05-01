@@ -9,4 +9,6 @@ plugins {
 
 ext {
 //    hiltVersion = "2.44"
+    retrofitVersion = "2.9.0"
+    gsonVersion = "2.10.1"
 }
