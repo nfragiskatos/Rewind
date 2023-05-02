@@ -1,6 +1,7 @@
 package com.nfragiskatos.rewind.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class MovieDto(
     val adult: Boolean,
@@ -20,7 +21,7 @@ data class MovieDto(
     @SerializedName("poster_path")
     val posterPath: String,
     @SerializedName("release_date")
-    val releaseDate: String,
+    val releaseDate: Date,
     val title: String,
     val video: Boolean,
     @SerializedName("vote_average")

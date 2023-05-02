@@ -1,5 +1,6 @@
 package com.nfragiskatos.rewind.di
 
+import com.google.gson.GsonBuilder
 import com.nfragiskatos.rewind.BuildConfig
 import com.nfragiskatos.rewind.data.remote.TheMovieDbApi
 import dagger.Module
@@ -18,9 +19,12 @@ object AppModule {
     @Provides
     @Singleton
     fun providesTheMoveDbApi(): TheMovieDbApi {
+        val gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd")
+            .create()
         return Retrofit.Builder()
             .baseUrl(BuildConfig.THE_MOVIE_DB_API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create()
     }
