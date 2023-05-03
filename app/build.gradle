@@ -55,7 +55,7 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        
+
         dataBinding true
     }
 }
@@ -84,6 +84,11 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
 
+    // cardview
+    implementation "androidx.cardview:cardview:$cardViewVersion"
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
 
 }
 
