@@ -26,6 +26,17 @@ class PopularMoviesFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_popular_movies, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        val adapter = PopularMoviesAdapter()
+
+        binding.popularMoviesRecyclerView.adapter = adapter
+
+        viewModel.movies.observe(viewLifecycleOwner) { movies ->
+            movies?.let {
+                adapter.submitList(it)
+            }
+        }
+
         return binding.root
     }
 
