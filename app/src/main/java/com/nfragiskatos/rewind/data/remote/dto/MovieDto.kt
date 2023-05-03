@@ -6,7 +6,7 @@ import java.util.*
 data class MovieDto(
     val adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String? = "",
     @SerializedName("genre_ids")
     val genreIds: List<Int>,
     val id: Int,
@@ -19,7 +19,7 @@ data class MovieDto(
     val overview: String,
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String? = "",
     @SerializedName("release_date")
     val releaseDate: Date,
     val title: String,

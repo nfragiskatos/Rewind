@@ -38,6 +38,7 @@ android {
         resValue "string", "THE_MOVIE_DB_API_KEY", theMoveDbApiKey
 
         buildConfigField "String", "THE_MOVIE_DB_API_BASE_URL", "\"https://api.themoviedb.org/3/\""
+        buildConfigField "String", "THE_MOVIE_DB_API_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w500\""
     }
 
     buildTypes {
@@ -78,7 +79,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
-
 
 
 }

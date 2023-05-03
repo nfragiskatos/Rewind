@@ -19,4 +19,10 @@ interface TheMovieDbApi {
         @Query("query") query: String
     ): TvShowPagedResultsDto
 
+    @GET("search/movie")
+    suspend fun searchMoviesByQuery(
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DB_API_KEY,
+        @Query("query") query: String
+    ): MoviePagedResultsDto
+
 }
