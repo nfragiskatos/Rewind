@@ -3,10 +3,13 @@ package com.nfragiskatos.rewind.presentation.popular.movies
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.nfragiskatos.rewind.BuildConfig
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.domain.model.Movie
 
@@ -15,13 +18,20 @@ class PopularMoviesAdapter :
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val textview: TextView = itemView.findViewById(R.id.movie_name)
+        private val title: TextView = itemView.findViewById(R.id.text_movie_name)
+        private val summary: TextView = itemView.findViewById(R.id.text_movie_summary)
+        private val poster: ImageView = itemView.findViewById(R.id.image_movie_poster)
         private var currentMovie: Movie? = null
 
         fun bind(movie: Movie) {
             currentMovie = movie
 
-            textview.text = movie.title
+            title.text = movie.title
+            summary.text = movie.overview
+
+            Glide.with(itemView.context)
+                .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.posterPath}")
+                .into(poster)
         }
     }
 
