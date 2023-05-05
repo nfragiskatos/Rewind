@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardview_movie">
+    android:id="@+id/cardview_movie"
+    android:layout_marginBottom="4dp"
+    style="?attr/materialCardViewElevatedStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/md_theme_light_primaryContainer">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/image_movie_poster"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:contentDescription="@string/movie_poster_content_desc"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -32,28 +27,26 @@
             android:id="@+id/text_movie_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/text_movie_summary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image_movie_poster"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Test Movie Title" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_movie_poster"
+            tools:text="Test Movie Title"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:textColor="@color/md_theme_dark_onSecondary" />
 
-        <TextView
-            android:id="@+id/text_movie_summary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_movie_poster"
-            app:layout_constraintTop_toBottomOf="@id/text_movie_name"
-            tools:text="Test Movie Summary" />
+        <!--        <com.google.android.material.textview.MaterialTextView-->
+        <!--            android:id="@+id/text_movie_summary"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:layout_marginBottom="8dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/image_movie_poster"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/text_movie_name"-->
+        <!--            tools:text="Test Movie Summary" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
