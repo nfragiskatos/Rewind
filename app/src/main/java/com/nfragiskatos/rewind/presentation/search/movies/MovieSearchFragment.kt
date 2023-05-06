@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
 import com.nfragiskatos.rewind.presentation.popular.movies.PopularMoviesAdapter
@@ -37,19 +37,35 @@ class MovieSearchFragment : Fragment() {
             }
         }
 
-        binding.movieSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    viewModel.searchMovies(it)
+        val searchView: SearchView = binding.movieSearchSearchView
+
+        searchView.editText.setOnEditorActionListener { v, actionId, event ->
+            val query = searchView.text
+            binding.moveSearchSearchBar.text = query
+            searchView.hide()
+
+            query?.let {
+                if (it.isNotBlank()) {
+                    viewModel.searchMovies(it.toString())
                 }
-                return true
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return true
-            }
+            false
+        }
 
-        })
+//        binding.movieSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                query?.let {
+//                    viewModel.searchMovies(it)
+//                }
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                return true
+//            }
+//
+//        })
 
 
         return binding.root
@@ -57,7 +73,6 @@ class MovieSearchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+//        viewModel.searchMovies("Harry Potter")
     }
-
 }

@@ -19,18 +19,15 @@ class PopularMoviesAdapter :
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val title: TextView = itemView.findViewById(R.id.text_movie_name)
-        private val summary: TextView = itemView.findViewById(R.id.text_movie_summary)
         private val poster: ImageView = itemView.findViewById(R.id.image_movie_poster)
         private var currentMovie: Movie? = null
 
         fun bind(movie: Movie) {
             currentMovie = movie
-
             title.text = movie.title
-            summary.text = movie.overview
-
             Glide.with(itemView.context)
-                .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.posterPath}")
+                .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.backdropPath}")
+
                 .into(poster)
         }
     }
@@ -55,5 +52,4 @@ object MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
     override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
     }
-
 }

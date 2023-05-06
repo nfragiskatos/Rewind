@@ -29,10 +29,10 @@ class MovieSearchViewModel @Inject constructor(
             val resp = api.searchMoviesByQuery(query = searchTerm)
 
             if (resp.isSuccessful) {
-                withContext(Dispatchers.Main) {
-                    val body = resp.body()
-                    val map: List<Movie>? = body?.results?.map(MovieDto::toMovie)
-                    map?.let {
+                val body = resp.body()
+                val map: List<Movie>? = body?.results?.map(MovieDto::toMovie)
+                map?.let {
+                    withContext(Dispatchers.Main) {
                         _movies.value = it
                     }
                 }

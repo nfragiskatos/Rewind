@@ -34,10 +34,6 @@ class PopularMoviesViewModel @Inject constructor(
                 map?.let {
                     _movies.value = it
                 }
-                body?.results?.forEach { movie ->
-                    Log.d("API CALL", "Movies: ${movie.title}, Release: ${movie.releaseDate}")
-                }
-                _movie.value = body?.results?.first()?.toMovie()?.title ?: "error"
             } else {
                 Log.d("API CALL", "ERROR MAKING API CALL")
             }
