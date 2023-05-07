@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.presentation.search.movies
+package com.nfragiskatos.rewind.presentation.movies.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
-import com.nfragiskatos.rewind.presentation.popular.movies.PopularMoviesAdapter
+import com.nfragiskatos.rewind.presentation.movies.popular.PopularMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

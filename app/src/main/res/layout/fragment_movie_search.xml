@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.nfragiskatos.rewind.presentation.search.movies.MovieSearchViewModel" />
+            type="com.nfragiskatos.rewind.presentation.movies.search.MovieSearchViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

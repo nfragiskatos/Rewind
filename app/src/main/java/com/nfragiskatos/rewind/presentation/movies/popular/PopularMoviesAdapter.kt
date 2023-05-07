@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.presentation.popular.movies
+package com.nfragiskatos.rewind.presentation.movies.popular
 
 import android.view.LayoutInflater
 import android.view.View

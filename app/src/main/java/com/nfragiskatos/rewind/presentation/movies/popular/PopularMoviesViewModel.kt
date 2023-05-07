@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.presentation.popular.movies
+package com.nfragiskatos.rewind.presentation.movies.popular
 
 import android.util.Log
 import androidx.lifecycle.LiveData

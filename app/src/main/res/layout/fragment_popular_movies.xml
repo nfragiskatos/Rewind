@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.nfragiskatos.rewind.presentation.popular.movies.PopularMoviesViewModel" />
+            type="com.nfragiskatos.rewind.presentation.movies.popular.PopularMoviesViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.popular.movies.PopularMoviesFragment">
+        tools:context=".presentation.movies.popular.PopularMoviesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popular_movies_recycler_view"

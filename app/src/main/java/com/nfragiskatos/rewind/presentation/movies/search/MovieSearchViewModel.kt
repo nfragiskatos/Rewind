@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.presentation.search.movies
+package com.nfragiskatos.rewind.presentation.movies.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

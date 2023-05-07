@@ -27,12 +27,12 @@
     </fragment>
     <fragment
         android:id="@+id/popularMoviesFragment"
-        android:name="com.nfragiskatos.rewind.presentation.popular.movies.PopularMoviesFragment"
+        android:name="com.nfragiskatos.rewind.presentation.movies.popular.PopularMoviesFragment"
         android:label="fragment_popular_movies"
         tools:layout="@layout/fragment_popular_movies" />
     <fragment
         android:id="@+id/movieSearchFragment"
-        android:name="com.nfragiskatos.rewind.presentation.search.movies.MovieSearchFragment"
+        android:name="com.nfragiskatos.rewind.presentation.movies.search.MovieSearchFragment"
         android:label="fragment_movie_search"
         tools:layout="@layout/fragment_movie_search" />
 </navigation>
