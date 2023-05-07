@@ -37,12 +37,20 @@ class MovieSearchFragment : Fragment() {
             }
         }
 
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.movieSearchProgressBar.show()
+            } else {
+                binding.movieSearchProgressBar.hide()
+            }
+        }
+
         val searchView: SearchView = binding.movieSearchSearchView
 
-        searchView.editText.setOnEditorActionListener { v, actionId, event ->
+        searchView.editText.setOnEditorActionListener { _, _, _ ->
             val query = searchView.text
-            binding.moveSearchSearchBar.text = query
             searchView.hide()
+            binding.moveSearchSearchBar.text = query
 
             query?.let {
                 if (it.isNotBlank()) {
@@ -52,27 +60,6 @@ class MovieSearchFragment : Fragment() {
 
             false
         }
-
-//        binding.movieSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                query?.let {
-//                    viewModel.searchMovies(it)
-//                }
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                return true
-//            }
-//
-//        })
-
-
         return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        viewModel.searchMovies("Harry Potter")
     }
 }
