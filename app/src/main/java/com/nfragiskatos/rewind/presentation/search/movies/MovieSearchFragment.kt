@@ -18,19 +18,25 @@ class MovieSearchFragment : Fragment() {
 
     private val viewModel: MovieSearchViewModel by viewModels()
     private lateinit var binding: FragmentMovieSearchBinding
+    private val adapter: PopularMoviesAdapter = PopularMoviesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_movie_search, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
-        val adapter = PopularMoviesAdapter()
         binding.movieSearchRecyclerView.adapter = adapter
 
+        setupObservers()
+        setupEventHandlers()
+
+        return binding.root
+    }
+
+    private fun setupObservers() {
         viewModel.movies.observe(viewLifecycleOwner) { movies ->
             movies?.let {
                 adapter.submitList(it)
@@ -44,7 +50,9 @@ class MovieSearchFragment : Fragment() {
                 binding.movieSearchProgressBar.hide()
             }
         }
+    }
 
+    private fun setupEventHandlers() {
         val searchView: SearchView = binding.movieSearchSearchView
 
         searchView.editText.setOnEditorActionListener { _, _, _ ->
@@ -57,9 +65,7 @@ class MovieSearchFragment : Fragment() {
                     viewModel.searchMovies(it.toString())
                 }
             }
-
             false
         }
-        return binding.root
     }
 }

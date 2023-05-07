@@ -38,6 +38,9 @@ class MovieRepositoryImpl @Inject constructor(
                 val body = response.body()
                 val movies: List<Movie> = body?.results?.map(MovieDto::toMovie) ?: listOf()
                 emit(Resource.Success(movies))
+            } else {
+                // TODO: Better response code handling
+                emit(Resource.Error("Error loading data"))
             }
         }
         emit(Resource.Loading(false))
