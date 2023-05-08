@@ -34,5 +34,19 @@
         android:id="@+id/movieSearchFragment"
         android:name="com.nfragiskatos.rewind.presentation.movies.search.MovieSearchFragment"
         android:label="fragment_movie_search"
-        tools:layout="@layout/fragment_movie_search" />
+        tools:layout="@layout/fragment_movie_search">
+        <action
+            android:id="@+id/action_movieSearchFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment"
+
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.nfragiskatos.rewind.presentation.movies.details.MovieDetailFragment"
+        android:label="MovieDetailFragment">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

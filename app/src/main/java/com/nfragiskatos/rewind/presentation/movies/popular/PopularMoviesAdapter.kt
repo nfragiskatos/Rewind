@@ -13,10 +13,11 @@ import com.nfragiskatos.rewind.BuildConfig
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.domain.model.Movie
 
-class PopularMoviesAdapter :
+class PopularMoviesAdapter(private val onClick: (Int) -> Unit = { _ -> }) :
     ListAdapter<Movie, PopularMoviesAdapter.MovieViewHolder>(MovieDiffCallback) {
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(itemView: View, private val onClick: (Int) -> Unit = { _ -> }) :
+        RecyclerView.ViewHolder(itemView) {
 
         private val title: TextView = itemView.findViewById(R.id.text_movie_name)
         private val poster: ImageView = itemView.findViewById(R.id.image_movie_poster)
@@ -25,6 +26,7 @@ class PopularMoviesAdapter :
         fun bind(movie: Movie) {
             currentMovie = movie
             title.text = movie.title
+            title.setOnClickListener { onClick(movie.id) }
             Glide.with(itemView.context)
                 .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.backdropPath}")
 
@@ -35,7 +37,7 @@ class PopularMoviesAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        return MovieViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
@@ -18,7 +20,7 @@ class MovieSearchFragment : Fragment() {
 
     private val viewModel: MovieSearchViewModel by viewModels()
     private lateinit var binding: FragmentMovieSearchBinding
-    private val adapter: PopularMoviesAdapter = PopularMoviesAdapter()
+    private val adapter: PopularMoviesAdapter = PopularMoviesAdapter(this::navigateToDetails)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,5 +69,10 @@ class MovieSearchFragment : Fragment() {
             }
             false
         }
+    }
+
+    private fun navigateToDetails(id: Int) {
+        val bundle = bundleOf("id" to id)
+        findNavController().navigate(R.id.action_movieSearchFragment_to_movieDetailFragment, bundle)
     }
 }
