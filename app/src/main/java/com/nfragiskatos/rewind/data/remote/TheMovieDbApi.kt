@@ -1,10 +1,12 @@
 package com.nfragiskatos.rewind.data.remote
 
 import com.nfragiskatos.rewind.BuildConfig
+import com.nfragiskatos.rewind.data.remote.dto.MovieDetailsDto
 import com.nfragiskatos.rewind.data.remote.dto.MoviePagedResultsDto
 import com.nfragiskatos.rewind.data.remote.dto.TvShowPagedResultsDto
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TheMovieDbApi {
@@ -26,4 +28,9 @@ interface TheMovieDbApi {
         @Query("query") query: String
     ): Response<MoviePagedResultsDto>
 
+    @GET("movie/{id}")
+    suspend fun getMovieDetails(
+        @Path("id") id: Int,
+        @Query("api_key") apiKey: String = BuildConfig.THE_MOVIE_DB_API_KEY,
+    ): Response<MovieDetailsDto>
 }

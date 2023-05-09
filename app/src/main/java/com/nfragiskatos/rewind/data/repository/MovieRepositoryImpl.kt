@@ -1,5 +1,6 @@
 package com.nfragiskatos.rewind.data.repository
 
+import android.util.Log
 import com.nfragiskatos.rewind.data.mapper.toMovie
 import com.nfragiskatos.rewind.data.remote.TheMovieDbApi
 import com.nfragiskatos.rewind.data.remote.dto.MovieDto
@@ -44,5 +45,14 @@ class MovieRepositoryImpl @Inject constructor(
             }
         }
         emit(Resource.Loading(false))
+    }
+
+    override fun getMovieDetails(id: Int): Flow<Resource<Movie>> = flow {
+        val response = api.getMovieDetails(id)
+        response.body()?.let {
+            Log.i("DETAILS", it.toString())
+        }
+
+
     }
 }

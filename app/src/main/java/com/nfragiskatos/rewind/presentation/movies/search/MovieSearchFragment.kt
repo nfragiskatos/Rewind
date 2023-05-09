@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
+import com.nfragiskatos.rewind.domain.model.Movie
 import com.nfragiskatos.rewind.presentation.movies.popular.PopularMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -71,8 +72,8 @@ class MovieSearchFragment : Fragment() {
         }
     }
 
-    private fun navigateToDetails(id: Int) {
-        val bundle = bundleOf("id" to id)
+    private fun navigateToDetails(movie: Movie) {
+        val bundle = bundleOf("id" to movie.id, "title" to movie.title)
         findNavController().navigate(R.id.action_movieSearchFragment_to_movieDetailFragment, bundle)
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,8 +29,16 @@ class MovieDetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val id = arguments?.getInt("id")
+        val title = arguments?.getString("title")
 
-        "Passed in id = $id".also { binding.testTextView.text = it }
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            this.title = "Details - $title" ?: "Details"
+        }
+        
+        id?.let {
+            viewModel.findMovieDetails(it)
+        }
+
 
         return binding.root
     }
