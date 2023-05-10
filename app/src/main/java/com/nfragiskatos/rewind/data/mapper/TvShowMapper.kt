@@ -1,6 +1,6 @@
 package com.nfragiskatos.rewind.data.mapper
 
-import com.nfragiskatos.rewind.data.remote.dto.TvShowDto
+import com.nfragiskatos.rewind.data.remote.dto.media.tvshow.TvShowDto
 import com.nfragiskatos.rewind.domain.model.TvShow
 
 fun TvShowDto.toTvShow(): TvShow {

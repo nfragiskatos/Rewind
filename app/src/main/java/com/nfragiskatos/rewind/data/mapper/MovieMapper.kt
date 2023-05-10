@@ -1,6 +1,6 @@
 package com.nfragiskatos.rewind.data.mapper
 
-import com.nfragiskatos.rewind.data.remote.dto.MovieDto
+import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDto
 import com.nfragiskatos.rewind.domain.model.Movie
 
 fun MovieDto.toMovie(): Movie {

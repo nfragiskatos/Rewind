@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.data.remote.dto
+package com.nfragiskatos.rewind.data.remote.dto.media.tvshow
 
 import com.google.gson.annotations.SerializedName
 import java.util.*

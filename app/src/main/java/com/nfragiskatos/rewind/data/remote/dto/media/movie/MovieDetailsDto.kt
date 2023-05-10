@@ -1,13 +1,14 @@
-package com.nfragiskatos.rewind.data.remote.dto
+package com.nfragiskatos.rewind.data.remote.dto.media.movie
 
 import com.google.gson.annotations.SerializedName
+import com.nfragiskatos.rewind.data.remote.dto.*
 
 data class MovieDetailsDto(
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String? = "",
     @SerializedName("belongs_to_collection")
-    val collection: BelongsToCollection,
+    val collection: Collection,
     val budget: Int,
     val genres: List<Genre>,
     val homepage: String,
@@ -24,8 +25,6 @@ data class MovieDetailsDto(
     val posterPath: String,
     @SerializedName("production_companies")
     val productionCompanies: List<ProductionCompany>,
-    @SerializedName("production_countries")
-    val productionCountries: List<ProductionCountry>,
     @SerializedName("release_date")
     val releaseDate: String,
     val revenue: Int,

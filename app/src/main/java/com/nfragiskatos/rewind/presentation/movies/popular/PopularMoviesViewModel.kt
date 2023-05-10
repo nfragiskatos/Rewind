@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nfragiskatos.rewind.data.mapper.toMovie
 import com.nfragiskatos.rewind.data.remote.TheMovieDbApi
-import com.nfragiskatos.rewind.data.remote.dto.MovieDto
+import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDto
 import com.nfragiskatos.rewind.domain.model.Movie
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -3,8 +3,8 @@ package com.nfragiskatos.rewind.data.repository
 import android.util.Log
 import com.nfragiskatos.rewind.data.mapper.toMovie
 import com.nfragiskatos.rewind.data.remote.TheMovieDbApi
-import com.nfragiskatos.rewind.data.remote.dto.MovieDto
-import com.nfragiskatos.rewind.data.remote.dto.MoviePagedResultsDto
+import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDto
+import com.nfragiskatos.rewind.data.remote.dto.media.movie.MoviePagedResultsDto
 import com.nfragiskatos.rewind.domain.model.Movie
 import com.nfragiskatos.rewind.domain.repository.MovieRepository
 import com.nfragiskatos.rewind.util.Resource

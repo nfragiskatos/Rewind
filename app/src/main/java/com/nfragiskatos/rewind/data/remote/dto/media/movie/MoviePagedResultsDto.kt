@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.data.remote.dto
+package com.nfragiskatos.rewind.data.remote.dto.media.movie
 
 import com.google.gson.annotations.SerializedName
 

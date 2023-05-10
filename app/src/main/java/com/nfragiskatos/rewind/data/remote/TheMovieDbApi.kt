@@ -1,9 +1,9 @@
 package com.nfragiskatos.rewind.data.remote
 
 import com.nfragiskatos.rewind.BuildConfig
-import com.nfragiskatos.rewind.data.remote.dto.MovieDetailsDto
-import com.nfragiskatos.rewind.data.remote.dto.MoviePagedResultsDto
-import com.nfragiskatos.rewind.data.remote.dto.TvShowPagedResultsDto
+import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDetailsDto
+import com.nfragiskatos.rewind.data.remote.dto.media.movie.MoviePagedResultsDto
+import com.nfragiskatos.rewind.data.remote.dto.media.tvshow.TvShowPagedResultsDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
