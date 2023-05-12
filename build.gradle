@@ -13,4 +13,5 @@ ext {
     gsonVersion = "2.10.1"
     cardViewVersion = "1.0.0"
     glideVersion = "4.15.1"
+    roomVersion = "2.5.1"
 }

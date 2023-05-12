@@ -1,10 +1,13 @@
 package com.nfragiskatos.rewind.di
 
 import android.annotation.SuppressLint
+import android.app.Application
+import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.nfragiskatos.rewind.BuildConfig
+import com.nfragiskatos.rewind.data.local.RewindDatabase
 import com.nfragiskatos.rewind.data.remote.TheMovieDbApi
 import dagger.Module
 import dagger.Provides
@@ -42,5 +45,15 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun providesRewindDatabase(app: Application): RewindDatabase {
+        return Room.databaseBuilder(
+            app,
+            RewindDatabase::class.java,
+            "rewinddb.db"
+        ).build()
     }
 }

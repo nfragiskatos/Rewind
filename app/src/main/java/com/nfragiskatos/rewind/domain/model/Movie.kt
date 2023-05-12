@@ -1,11 +1,9 @@
 package com.nfragiskatos.rewind.domain.model
 
-import java.util.*
+import java.util.Date
 
 data class Movie(
-    val adult: Boolean,
     val backdropPath: String,
-    val genreIds: List<Int>,
     val id: Int,
     val originalLanguage: String,
     val originalTitle: String,

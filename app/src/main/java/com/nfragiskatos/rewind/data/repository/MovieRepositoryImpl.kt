@@ -1,7 +1,10 @@
 package com.nfragiskatos.rewind.data.repository
 
+import android.util.Log
+import com.nfragiskatos.rewind.data.local.RewindDatabase
 import com.nfragiskatos.rewind.data.mapper.toMovie
 import com.nfragiskatos.rewind.data.mapper.toMovieDetails
+import com.nfragiskatos.rewind.data.mapper.toMovieEntity
 import com.nfragiskatos.rewind.data.remote.TheMovieDbApi
 import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDetailsDto
 import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDto
@@ -20,9 +23,11 @@ import javax.inject.Singleton
 
 @Singleton
 class MovieRepositoryImpl @Inject constructor(
-    private val api: TheMovieDbApi
+    private val api: TheMovieDbApi,
+    private val db: RewindDatabase
 ) : MovieRepository {
 
+    private val movieDao = db.movieDao()
     override fun searchMovies(searchTerm: String): Flow<Resource<List<Movie>>> = flow {
         emit(Resource.Loading(true))
         val response: Response<MoviePagedResultsDto>? = try {
@@ -79,5 +84,17 @@ class MovieRepositoryImpl @Inject constructor(
             }
         }
         emit(Resource.Loading(false))
+    }
+
+    override fun addMovieToWatchedHistory(movie: Movie): Flow<Resource<Movie>> = flow {
+        emit(Resource.Loading(true))
+        try {
+            movieDao.insertAll(movie.toMovieEntity())
+        } catch (e: Exception) {
+            Log.i("REWIND DATABASE", e.printStackTrace().toString())
+            emit(Resource.Error("Error saving movie", movie))
+        }
+        emit(Resource.Loading(false))
+
     }
 }

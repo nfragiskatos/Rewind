@@ -1,5 +1,6 @@
 package com.nfragiskatos.rewind.presentation.movies.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,6 +33,7 @@ class MovieSearchViewModel @Inject constructor(
                         is Resource.Loading -> {
                             _isLoading.value = result.isLoading
                         }
+
                         is Resource.Success -> {
                             result.data?.let {
                                 _movies.value = it
@@ -39,6 +41,29 @@ class MovieSearchViewModel @Inject constructor(
                         }
                     }
                 }
+        }
+    }
+
+    fun addMovieToWatchedHistory(movie: Movie) {
+        viewModelScope.launch {
+            movieRepository.addMovieToWatchedHistory(movie).collect { result ->
+                when (result) {
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {
+                        Log.i(
+                            "REWIND DATABASE",
+                            if (result.isLoading) "Saving..." else "saved"
+                        )
+                    }
+
+                    is Resource.Success -> {
+                        Log.i(
+                            "REWIND DATABASE",
+                            "Successfully saved ${result.data?.title}"
+                        )
+                    }
+                }
+            }
         }
     }
 }

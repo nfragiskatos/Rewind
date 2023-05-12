@@ -43,6 +43,10 @@ class MovieDetailFragment : Fragment() {
             viewModel.findMovieDetails(it)
         }
 
+        binding.movieDetailAddToWatchedButton.setOnClickListener {
+
+        }
+
 
         return binding.root
     }

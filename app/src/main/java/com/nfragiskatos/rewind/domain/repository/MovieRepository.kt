@@ -10,4 +10,6 @@ interface MovieRepository {
     fun searchMovies(searchTerm: String): Flow<Resource<List<Movie>>>
 
     fun getMovieDetails(id: Int): Flow<Resource<MovieDetails>>
+
+    fun addMovieToWatchedHistory(movie: Movie): Flow<Resource<Movie>>
 }
