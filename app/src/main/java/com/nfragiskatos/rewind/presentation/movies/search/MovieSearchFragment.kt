@@ -75,6 +75,7 @@ class MovieSearchFragment : Fragment() {
             query?.let {
                 if (it.isNotBlank()) {
                     viewModel.updateSearchCriteria(it.toString())
+                    binding.movieSearchRecyclerView.scrollToPosition(0)
                 }
             }
             false
