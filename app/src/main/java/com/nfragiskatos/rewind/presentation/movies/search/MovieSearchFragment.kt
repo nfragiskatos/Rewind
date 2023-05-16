@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
@@ -50,6 +51,19 @@ class MovieSearchFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.testFlow.collectLatest { pagingData ->
                     adapter.submitData(pagingData)
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            adapter.loadStateFlow.collectLatest { loadStates ->
+                val append = loadStates.append
+                val refresh = loadStates.refresh
+
+                if (append is LoadState.Loading || refresh is LoadState.Loading) {
+                    binding.movieSearchProgressBar.show()
+                } else if (append is LoadState.NotLoading && refresh is LoadState.NotLoading) {
+                    binding.movieSearchProgressBar.hide()
                 }
             }
         }
