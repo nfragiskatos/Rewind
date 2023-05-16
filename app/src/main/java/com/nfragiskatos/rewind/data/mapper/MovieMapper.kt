@@ -5,6 +5,7 @@ import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDetailsDto
 import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDto
 import com.nfragiskatos.rewind.domain.model.Movie
 import com.nfragiskatos.rewind.domain.model.MovieDetails
+import java.util.Date
 
 fun MovieDto.toMovie(): Movie {
     return Movie(
@@ -47,7 +48,8 @@ fun MovieEntity.toMovie(): Movie {
         title = title,
         video = video,
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        dateWatched = dateWatched
     )
 }
 
@@ -64,6 +66,8 @@ fun Movie.toMovieEntity(): MovieEntity {
         title = title,
         video = video,
         voteAverage = voteAverage,
-        voteCount = voteCount
+        voteCount = voteCount,
+        dateWatched = dateWatched ?: Date()
     )
 }
+

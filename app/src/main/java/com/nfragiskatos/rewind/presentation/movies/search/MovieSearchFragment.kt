@@ -8,6 +8,9 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
@@ -15,6 +18,8 @@ import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
 import com.nfragiskatos.rewind.domain.model.Movie
 import com.nfragiskatos.rewind.presentation.movies.popular.PopularMoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieSearchFragment : Fragment() {
@@ -41,11 +46,14 @@ class MovieSearchFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.movies.observe(viewLifecycleOwner) { movies ->
-            movies?.let {
-                adapter.submitList(it)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.testFlow.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
             }
         }
+
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
@@ -66,7 +74,7 @@ class MovieSearchFragment : Fragment() {
 
             query?.let {
                 if (it.isNotBlank()) {
-                    viewModel.searchMovies(it.toString())
+                    viewModel.updateSearchCriteria(it.toString())
                 }
             }
             false

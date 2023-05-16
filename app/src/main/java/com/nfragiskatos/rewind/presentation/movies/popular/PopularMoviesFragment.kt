@@ -31,11 +31,11 @@ class PopularMoviesFragment : Fragment() {
 
         binding.popularMoviesRecyclerView.adapter = adapter
 
-        viewModel.movies.observe(viewLifecycleOwner) { movies ->
-            movies?.let {
-                adapter.submitList(it)
-            }
-        }
+//        viewModel.movies.observe(viewLifecycleOwner) { movies ->
+//            movies?.let {
+//                adapter.submitList(it)
+//            }
+//        }
 
         return binding.root
     }

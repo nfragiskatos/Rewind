@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nfragiskatos.rewind.BuildConfig
@@ -18,7 +18,7 @@ class PopularMoviesAdapter(
     private val onClick: (Movie) -> Unit = { _ -> },
     private val onAdd: (Movie) -> Unit = { _ -> }
 ) :
-    ListAdapter<Movie, PopularMoviesAdapter.MovieViewHolder>(MovieDiffCallback) {
+    PagingDataAdapter<Movie, PopularMoviesAdapter.MovieViewHolder>(MovieDiffCallback) {
 
     class MovieViewHolder(
         itemView: View,
@@ -33,15 +33,23 @@ class PopularMoviesAdapter(
         private var currentMovie: Movie? = null
 
 
-        fun bind(movie: Movie) {
+        fun bind(movie: Movie?) {
             currentMovie = movie
-            title.text = movie.title
-            title.setOnClickListener { onClick(movie) }
-            addButton.setOnClickListener { onAdd(movie) }
-            Glide.with(itemView.context)
-                .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.backdropPath}")
+            title.text = movie?.title ?: "NULL VALUE"
+            if (movie != null) {
 
-                .into(poster)
+
+                title.setOnClickListener { onClick(movie) }
+                addButton.setOnClickListener { onAdd(movie) }
+                Glide.with(itemView.context)
+                    .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.backdropPath}")
+
+                    .into(poster)
+
+                movie.dateWatched?.also {
+//                    testButton.setIconResource(R.drawable.baseline_playlist_remove_24)
+                }
+            }
         }
     }
 

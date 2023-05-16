@@ -97,4 +97,11 @@ class MovieRepositoryImpl @Inject constructor(
         emit(Resource.Loading(false))
 
     }
+
+    override suspend fun searchMoviesPaging(
+        searchTerm: String,
+        page: Int
+    ): Response<MoviePagedResultsDto> {
+        return api.searchMoviesByQuery(query = searchTerm, page = page)
+    }
 }

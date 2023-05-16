@@ -11,7 +11,7 @@ data class MovieEntity(
     val id: Int,
 
     @ColumnInfo(name = "backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
 
     @ColumnInfo(name = "original_language")
     val originalLanguage: String,
@@ -26,10 +26,10 @@ data class MovieEntity(
     val popularity: Double,
 
     @ColumnInfo(name = "poster_path")
-    val posterPath: String,
+    val posterPath: String?,
 
     @ColumnInfo(name = "release_date")
-    val releaseDate: Date,
+    val releaseDate: Date?,
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -41,5 +41,8 @@ data class MovieEntity(
     val voteAverage: Double,
 
     @ColumnInfo(name = "vote_count")
-    val voteCount: Int
+    val voteCount: Int,
+
+    @ColumnInfo(name = "date_watched")
+    val dateWatched: Date,
 )
