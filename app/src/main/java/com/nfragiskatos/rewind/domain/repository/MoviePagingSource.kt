@@ -1,12 +1,11 @@
 package com.nfragiskatos.rewind.domain.repository
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingSource.LoadResult.Page
 import androidx.paging.PagingState
-import com.nfragiskatos.rewind.data.mapper.toMovie
-import com.nfragiskatos.rewind.data.remote.dto.media.movie.MovieDto
 import com.nfragiskatos.rewind.domain.model.Movie
-import retrofit2.HttpException
-import java.io.IOException
+import com.nfragiskatos.rewind.domain.model.MoviePage
+import com.nfragiskatos.rewind.util.Result
 
 class MoviePagingSource(
     private val repository: MovieRepository,
@@ -21,25 +20,20 @@ class MoviePagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key ?: 1
-        val response = try {
-            repository.searchMoviesPaging(query, page)
-        } catch (e: IOException) {
-            return LoadResult.Error(e)
-        } catch (e: HttpException) {
-            return LoadResult.Error(e)
-        }
 
-        return if (response.isSuccessful) {
-            val body = response.body()
-            val movies = body?.results?.map(MovieDto::toMovie) ?: listOf()
-            val nextPage = if (body != null && page < body.totalPages) page.plus(1) else null
-            LoadResult.Page(
-                data = movies,
-                prevKey = null,
-                nextKey = nextPage
-            )
-        } else {
-            LoadResult.Error(HttpException(response))
+        return when (val testResult: Result<MoviePage, Throwable> =
+            repository.searchMoviesPagingTest(query, page)) {
+            is Result.Failure -> {
+                LoadResult.Error(testResult.reason)
+            }
+
+            is Result.Success -> {
+                Page(
+                    data = testResult.value.results,
+                    prevKey = null,
+                    nextKey = testResult.value.nextPage()
+                )
+            }
         }
     }
 }

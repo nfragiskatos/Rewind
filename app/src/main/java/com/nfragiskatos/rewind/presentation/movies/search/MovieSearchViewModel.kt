@@ -71,4 +71,8 @@ class MovieSearchViewModel @Inject constructor(
             }
         }
     }
+
+    fun removeMovieFromWatchedHistory(movie: Movie) {
+        // TODO: Add implementation
+    }
 }

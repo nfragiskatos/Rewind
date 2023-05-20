@@ -13,7 +13,7 @@ interface MovieDao {
     suspend fun getAll(): List<MovieEntity>
 
     @Query("SELECT * FROM movieentity WHERE id = :id")
-    suspend fun findById(id: Int): MovieEntity
+    suspend fun findById(id: Int): MovieEntity?
 
     @Insert
     suspend fun insertAll(vararg movies: MovieEntity)

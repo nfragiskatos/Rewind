@@ -28,7 +28,7 @@ class MovieSearchFragment : Fragment() {
     private val viewModel: MovieSearchViewModel by viewModels()
     private lateinit var binding: FragmentMovieSearchBinding
     private val adapter: PopularMoviesAdapter =
-        PopularMoviesAdapter(this::navigateToDetails, this::addMovie)
+        PopularMoviesAdapter(this::navigateToDetails, this::addRemoveMovie)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,7 +101,7 @@ class MovieSearchFragment : Fragment() {
         findNavController().navigate(R.id.action_movieSearchFragment_to_movieDetailFragment, bundle)
     }
 
-    private fun addMovie(movie: Movie) {
+    private fun addRemoveMovie(movie: Movie) {
         viewModel.addMovieToWatchedHistory(movie)
     }
 }
