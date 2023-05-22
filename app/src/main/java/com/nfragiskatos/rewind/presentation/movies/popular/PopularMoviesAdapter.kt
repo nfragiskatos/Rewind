@@ -1,6 +1,5 @@
 package com.nfragiskatos.rewind.presentation.movies.popular
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +37,6 @@ class PopularMoviesAdapter(
 
 
         fun bind(movie: Movie?) {
-            Log.i(
-                "onBindViewHolder",
-                "Binding Position: $bindingAdapterPosition,\tMovie: ${movie?.title}"
-            )
             currentMovie = movie
             title.text = movie?.title ?: "NULL VALUE"
             if (movie != null) {
