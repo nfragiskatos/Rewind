@@ -18,6 +18,9 @@ interface MovieDao {
     @Insert
     suspend fun insertAll(vararg movies: MovieEntity)
 
+    @Insert
+    suspend fun insert(movie: MovieEntity)
+
     @Delete
     suspend fun delete(movie: MovieEntity)
 }

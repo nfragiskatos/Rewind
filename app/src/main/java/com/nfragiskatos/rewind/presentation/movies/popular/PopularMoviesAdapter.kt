@@ -1,5 +1,6 @@
 package com.nfragiskatos.rewind.presentation.movies.popular
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +11,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.nfragiskatos.rewind.BuildConfig
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.domain.model.Movie
 
 class PopularMoviesAdapter(
     private val onClick: (Movie) -> Unit = { _ -> },
-    private val onAddRemove: (Movie) -> Unit = { _ -> }
+    private val onAddOrRemove: (Movie, Int) -> Unit = { _, _ -> }
 ) :
     PagingDataAdapter<Movie, PopularMoviesAdapter.MovieViewHolder>(MovieDiffCallback) {
 
     class MovieViewHolder(
         itemView: View,
         private val onClick: (Movie) -> Unit = { _ -> },
-        private val onAddRemove: (Movie) -> Unit = { _ -> }
+        private val onAddOrRemove: (Movie, Int) -> Unit = { _, _ -> }
     ) :
         RecyclerView.ViewHolder(itemView) {
 
@@ -31,16 +33,26 @@ class PopularMoviesAdapter(
         private val poster: ImageView = itemView.findViewById(R.id.image_movie_poster)
         private var addButton: MaterialButton = itemView.findViewById(R.id.add_movie_button)
         private var currentMovie: Movie? = null
+        private var progressBar: LinearProgressIndicator =
+            itemView.findViewById(R.id.movie_item_progress_bar)
 
 
         fun bind(movie: Movie?) {
+            Log.i(
+                "onBindViewHolder",
+                "Binding Position: $bindingAdapterPosition,\tMovie: ${movie?.title}"
+            )
             currentMovie = movie
             title.text = movie?.title ?: "NULL VALUE"
             if (movie != null) {
-
-
+                progressBar.hide()
                 title.setOnClickListener { onClick(movie) }
-                addButton.setOnClickListener { onAddRemove(movie) }
+                addButton.isEnabled = true
+                addButton.setOnClickListener {
+                    progressBar.show()
+                    addButton.isEnabled = false
+                    onAddOrRemove(movie, bindingAdapterPosition)
+                }
                 Glide.with(itemView.context)
                     .load("${BuildConfig.THE_MOVIE_DB_API_IMAGE_BASE_URL}${movie.backdropPath}")
                     .into(poster)
@@ -59,7 +71,7 @@ class PopularMoviesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view, onClick, onAddRemove)
+        return MovieViewHolder(view, onClick, onAddOrRemove)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

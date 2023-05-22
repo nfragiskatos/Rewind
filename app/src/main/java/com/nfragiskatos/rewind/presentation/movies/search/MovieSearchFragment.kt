@@ -28,7 +28,7 @@ class MovieSearchFragment : Fragment() {
     private val viewModel: MovieSearchViewModel by viewModels()
     private lateinit var binding: FragmentMovieSearchBinding
     private val adapter: PopularMoviesAdapter =
-        PopularMoviesAdapter(this::navigateToDetails, this::addRemoveMovie)
+        PopularMoviesAdapter(this::navigateToDetails, this::addOrRemoveFromWatchedHistory)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +76,15 @@ class MovieSearchFragment : Fragment() {
                 binding.movieSearchProgressBar.hide()
             }
         }
+
+        viewModel.movieUpdate.observe(viewLifecycleOwner) { update ->
+            update?.let {
+                adapter.snapshot()[update.position]?.let {
+                    it.dateWatched = update.movie.dateWatched
+                    adapter.notifyItemChanged(update.position)
+                }
+            }
+        }
     }
 
     private fun setupEventHandlers() {
@@ -101,7 +110,11 @@ class MovieSearchFragment : Fragment() {
         findNavController().navigate(R.id.action_movieSearchFragment_to_movieDetailFragment, bundle)
     }
 
-    private fun addRemoveMovie(movie: Movie) {
-        viewModel.addMovieToWatchedHistory(movie)
+    private fun addOrRemoveFromWatchedHistory(movie: Movie, position: Int) {
+        if (movie.dateWatched != null) {
+            viewModel.removeFromWatchedHistory(movie, position)
+        } else {
+            viewModel.addToWatchedHistory(movie, position)
+        }
     }
 }

@@ -88,16 +88,25 @@ class MovieRepositoryImpl @Inject constructor(
         emit(Resource.Loading(false))
     }
 
-    override fun addMovieToWatchedHistory(movie: Movie): Flow<Resource<Movie>> = flow {
-        emit(Resource.Loading(true))
-        try {
-            movieDao.insertAll(movie.toMovieEntity())
+    override suspend fun addMovieToWatchedHistory(movie: Movie): Movie {
+        return try {
+            val entity = movie.toMovieEntity()
+            movieDao.insert(entity)
+            entity.toMovie()
         } catch (e: Exception) {
             Log.i("REWIND DATABASE", e.printStackTrace().toString())
-            emit(Resource.Error("Error saving movie", movie))
+            movie
         }
-        emit(Resource.Loading(false))
+    }
 
+    override suspend fun removeMovieFromWatchedHistory(movie: Movie): Movie {
+        return try {
+            movieDao.delete(movie.toMovieEntity())
+            movie.copy(dateWatched = null)
+        } catch (e: Exception) {
+            Log.i("REWIND DATABASE", e.printStackTrace().toString())
+            movie
+        }
     }
 
     override suspend fun searchMoviesPagingTest(

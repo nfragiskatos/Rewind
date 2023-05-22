@@ -13,7 +13,9 @@ interface MovieRepository {
 
     fun getMovieDetails(id: Int): Flow<Resource<MovieDetails>>
 
-    fun addMovieToWatchedHistory(movie: Movie): Flow<Resource<Movie>>
+    suspend fun addMovieToWatchedHistory(movie: Movie): Movie
+
+    suspend fun removeMovieFromWatchedHistory(movie: Movie): Movie
 
     suspend fun searchMoviesPagingTest(
         searchTerm: String,

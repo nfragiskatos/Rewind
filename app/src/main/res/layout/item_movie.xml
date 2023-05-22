@@ -46,4 +46,14 @@
             style="@style/Widget.Material3.Button.ElevatedButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/movie_item_progress_bar"
+        app:showAnimationBehavior="outward"
+        app:hideAnimationBehavior="outward"
+        android:visibility="gone"
+        android:layout_gravity="bottom"
+        android:indeterminate="true" />
 </com.google.android.material.card.MaterialCardView>

@@ -1,6 +1,5 @@
 package com.nfragiskatos.rewind.presentation.movies.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import androidx.paging.cachedIn
 import com.nfragiskatos.rewind.domain.model.Movie
 import com.nfragiskatos.rewind.domain.repository.MoviePagingSource
 import com.nfragiskatos.rewind.domain.repository.MovieRepository
-import com.nfragiskatos.rewind.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,6 +24,9 @@ class MovieSearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val query = MutableStateFlow("")
+
+    private val _movieUpdate = MutableLiveData<MovieUpdate?>(null)
+    val movieUpdate: LiveData<MovieUpdate?> = _movieUpdate
 
     private val _movies = MutableLiveData<List<Movie>>(listOf())
     val movies: LiveData<List<Movie>> = _movies
@@ -46,33 +47,17 @@ class MovieSearchViewModel @Inject constructor(
         query.value = searchTerm
     }
 
-    fun addMovieToWatchedHistory(movie: Movie) {
+    fun addToWatchedHistory(movie: Movie, position: Int) {
         viewModelScope.launch {
-            movieRepository.addMovieToWatchedHistory(movie).collect { result ->
-                when (result) {
-                    is Resource.Error -> {
-                        Log.i("REWIND DATABASE", "Error: ${result.message}")
-                    }
-
-                    is Resource.Loading -> {
-                        Log.i(
-                            "REWIND DATABASE",
-                            if (result.isLoading) "Saving..." else "saved"
-                        )
-                    }
-
-                    is Resource.Success -> {
-                        Log.i(
-                            "REWIND DATABASE",
-                            "Successfully saved ${result.data?.title}"
-                        )
-                    }
-                }
-            }
+            val updated = movieRepository.addMovieToWatchedHistory(movie)
+            _movieUpdate.value = MovieUpdate(updated, position)
         }
     }
 
-    fun removeMovieFromWatchedHistory(movie: Movie) {
-        // TODO: Add implementation
+    fun removeFromWatchedHistory(movie: Movie, position: Int) {
+        viewModelScope.launch {
+            val updated = movieRepository.removeMovieFromWatchedHistory(movie)
+            _movieUpdate.value = MovieUpdate(updated, position)
+        }
     }
 }
