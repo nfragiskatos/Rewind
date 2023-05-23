@@ -17,7 +17,7 @@ import com.google.android.material.search.SearchView
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentMovieSearchBinding
 import com.nfragiskatos.rewind.domain.model.Movie
-import com.nfragiskatos.rewind.presentation.movies.popular.PopularMoviesAdapter
+import com.nfragiskatos.rewind.presentation.movies.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,8 +27,8 @@ class MovieSearchFragment : Fragment() {
 
     private val viewModel: MovieSearchViewModel by viewModels()
     private lateinit var binding: FragmentMovieSearchBinding
-    private val adapter: PopularMoviesAdapter =
-        PopularMoviesAdapter(this::navigateToDetails, this::addOrRemoveFromWatchedHistory)
+    private val adapter: MoviesAdapter =
+        MoviesAdapter(this::navigateToDetails, this::addOrRemoveFromWatchedHistory)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.databinding.FragmentPopularMoviesBinding
+import com.nfragiskatos.rewind.presentation.movies.MoviesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +28,7 @@ class PopularMoviesFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = PopularMoviesAdapter()
+        val adapter = MoviesAdapter()
 
         binding.popularMoviesRecyclerView.adapter = adapter
 

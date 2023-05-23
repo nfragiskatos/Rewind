@@ -1,4 +1,4 @@
-package com.nfragiskatos.rewind.presentation.movies.popular
+package com.nfragiskatos.rewind.presentation.movies
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +15,11 @@ import com.nfragiskatos.rewind.BuildConfig
 import com.nfragiskatos.rewind.R
 import com.nfragiskatos.rewind.domain.model.Movie
 
-class PopularMoviesAdapter(
+class MoviesAdapter(
     private val onClick: (Movie) -> Unit = { _ -> },
     private val onAddOrRemove: (Movie, Int) -> Unit = { _, _ -> }
 ) :
-    PagingDataAdapter<Movie, PopularMoviesAdapter.MovieViewHolder>(MovieDiffCallback) {
+    PagingDataAdapter<Movie, MoviesAdapter.MovieViewHolder>(MovieDiffCallback) {
 
     class MovieViewHolder(
         itemView: View,
@@ -65,7 +65,7 @@ class PopularMoviesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
+            .inflate(R.layout.item_movies_list, parent, false)
         return MovieViewHolder(view, onClick, onAddOrRemove)
     }
 
